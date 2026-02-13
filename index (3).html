@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Perrito Saltando con Amor</title>
+
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #fff5f8;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  #dog {
+    font-size: 90px;
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 0.3s ease;
+  }
+
+  #text {
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: float 3s linear forwards;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-200px); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<div id="text">Toca la pantalla para comenzar 🐾</div>
+<div id="dog">🐕</div>
+
+<script>
+let step = 0;
+const dog = document.getElementById("dog");
+const text = document.getElementById("text");
+
+const steps = [
+  "Levántate de tu cama 💤",
+  "Camina hacia la puerta 🚪",
+  "Da vuelta a la derecha ↪️",
+  "Abre el clóset 🗄️",
+  "Busca hasta abajo y al fondo del clóset una cajita 📦",
+  "Es un detalle muy pequeño pero con mucho amor ❤️",
+  "Te amo 💖"
+];
+
+document.body.addEventListener("click", () => {
+
+  // Hacer saltar al perrito
+  dog.style.bottom = "200px";
+  setTimeout(() => {
+    dog.style.bottom = "120px";
+  }, 300);
+
+  // Avanzar instrucciones
+  if (step < steps.length) {
+    text.innerText = steps[step];
+    step++;
+  } else {
+    lanzarCorazones();
+    ladrar();
+    text.innerText = "🐕💖";
+  }
+});
+
+function lanzarCorazones() {
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤️";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+
+function ladrar() {
+  const bark = new Audio("https://www.soundjay.com/animal/dog-bark-01.mp3");
+  bark.play();
+}
+</script>
+
+</body>
+</html>
